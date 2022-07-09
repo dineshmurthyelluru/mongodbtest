@@ -40,7 +40,7 @@ app.get("/", async (request, response) => {
 
 app.post("/addUser", async (request, response) => {
   try {
-     const result1 =await db.collection('UserInfo').insertOne({ name: "ramesh"})
+     const result1 =await db.collection('UserInfo').insertOne({ name: request.body.name})
      if(result1){
       const result =await db.collection('UserInfo').find().toArray();
       console.log(result);
