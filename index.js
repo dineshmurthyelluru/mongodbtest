@@ -5,6 +5,7 @@ const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 app.use(express.json());
+const PORT=process.env.PORT||3000;
 console.log( process.env.DBNAME)
 mongoose.connect(
   process.env.DBNAME,
@@ -29,6 +30,14 @@ app.get("/getUser", async (request, response) => {
     }
 });
 
+app.get("/", async (request, response) => {
+  try {
+    response.send({name:"working"});
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 app.post("/addUser", async (request, response) => {
   try {
      const result1 =await db.collection('UserInfo').insertOne({ name: "ramesh"})
@@ -43,6 +52,6 @@ app.post("/addUser", async (request, response) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("Server is running at port 3000");
 });
